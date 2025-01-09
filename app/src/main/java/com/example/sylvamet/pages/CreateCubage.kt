@@ -35,7 +35,6 @@ import com.example.sylvamet.components.BottomNavigationBar
 import com.example.sylvamet.components.DatePickerFieldToModal
 import com.example.sylvamet.components.DropdownTextField
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateCubageScreen(navController: NavHostController) {
@@ -122,7 +121,6 @@ fun CubageCreationForm() {
     }
 
 }
-
 
 @Composable
 fun ExtendedExample(onClick: () -> Unit) {
