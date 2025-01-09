@@ -4,7 +4,6 @@ package com.example.sylvamet.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,8 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -32,11 +29,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.sylvamet.R
+import com.example.sylvamet.components.BottomNavigationBar
+import com.example.sylvamet.components.CubageItem
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CubageScreen(navController: NavHostController) {
+fun CubageListScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,19 +51,19 @@ fun CubageScreen(navController: NavHostController) {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = {navController.navigateUp()}) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Localized description",
+                            contentDescription = "ArrowBack",
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = {}) {
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = "Localized description",
+                            contentDescription = "Search",
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -73,7 +72,7 @@ fun CubageScreen(navController: NavHostController) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* Handle new cubage action */ },
+                onClick = { navController.navigate("create_cubage") },
                 containerColor = MaterialTheme.colorScheme.secondaryContainer
             ) {
                 Icon(
@@ -83,7 +82,7 @@ fun CubageScreen(navController: NavHostController) {
             }
         },
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar(navController, true, false, false)
         }
     ) {
         LazyColumn(
@@ -91,69 +90,9 @@ fun CubageScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(it)
         ) {
-            items(12) { // Dynamically generate CubageItems for demonstration
+            items(12) {
                 CubageItem(coupeNumber = 192)
             }
         }
-    }
-}
-
-@Composable
-fun CubageItem(coupeNumber: Int, date: String = "28 Juin, 2024") {
-    ListItem(
-        headlineContent = { Text("Coupe Avanche") },
-        supportingContent = { Text(date) },
-        leadingContent = {
-            Image(
-                painter = painterResource(id = R.drawable.placeholder),
-                contentDescription = "Localized description",
-                modifier = Modifier.size(60.dp)
-            )
-        },
-        trailingContent = { Text(coupeNumber.toString()) }
-    )
-    HorizontalDivider()
-}
-
-@Composable
-fun BottomNavigationBar() {
-    NavigationBar(
-        modifier = Modifier
-            .fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.surface
-    ) {
-        NavigationBarItem(
-            selected = true,
-            onClick = { /* Handle Organiser action */ },
-            icon = { Icon(
-                painter = painterResource(id = R.drawable.box),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-            ) },
-            label = { Text(text = "Cubage") }
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = { /* Handle Cubage action */ },
-            icon = { Icon(
-                painter = painterResource(id = R.drawable.file),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-            ) },
-            label = { Text(text = "Données") }
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = { /* Handle Martelage action */ },
-            icon = { Icon(
-                painter = painterResource(id = R.drawable.hammer),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-            ) },
-            label = { Text(text = "Martelage") }
-        )
     }
 }
